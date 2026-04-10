@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import "./styles/Landing.css";
+import GlitchText from "./GlitchText";
 
 const Landing = ({ children }: PropsWithChildren) => {
   return (
@@ -9,9 +10,11 @@ const Landing = ({ children }: PropsWithChildren) => {
           <div className="landing-intro">
             <h2>Hello! I'm</h2>
             <h1 title="Shubrath Shakyavanshi" aria-label="Shubrath Shakyavanshi">
-              SHUBRATH
+              <GlitchText text="SHUBRATH" />
               <br />
-              <span>SHAKYAVANSHI</span>
+              <span>
+                <GlitchText text="SHAKYAVANSHI" />
+              </span>
             </h1>
           </div>
           <div className="landing-info">

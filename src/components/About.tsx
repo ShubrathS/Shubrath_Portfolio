@@ -1,4 +1,5 @@
 import "./styles/About.css";
+import StatsCounter from "./StatsCounter";
 
 const About = () => {
   return (
@@ -16,6 +17,7 @@ const About = () => {
           time by 50%, cutting operational costs by 15%, and deploying 15+
           automation solutions across enterprise operations.
         </p>
+        <StatsCounter />
       </div>
     </div>
   );

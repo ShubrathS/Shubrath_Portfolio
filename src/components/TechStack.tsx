@@ -10,6 +10,7 @@ import {
   CylinderCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
+import { usePerformance } from "../context/PerformanceContext";
 
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [
@@ -25,10 +26,6 @@ const imageUrls = [
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
-
-const spheres = [...Array(30)].map(() => ({
-  scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
-}));
 
 type SphereProps = {
   vec?: THREE.Vector3;
@@ -126,6 +123,16 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  const { sphereCount, enablePostProcessing, pixelRatio } = usePerformance();
+
+  // Generate spheres based on detected performance level
+  const spheres = useMemo(
+    () =>
+      [...Array(sphereCount)].map(() => ({
+        scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
+      })),
+    [sphereCount]
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,6 +158,7 @@ const TechStack = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const materials = useMemo(() => {
     return textures.map(
       (texture) =>
@@ -174,7 +182,10 @@ const TechStack = () => {
         shadows
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
-        onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
+        onCreated={(state) => {
+          state.gl.toneMappingExposure = 1.5;
+          state.gl.setPixelRatio(pixelRatio);
+        }}
         className="tech-canvas"
       >
         <ambientLight intensity={1} />
@@ -203,9 +214,11 @@ const TechStack = () => {
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
-        <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
-        </EffectComposer>
+        {enablePostProcessing && (
+          <EffectComposer enableNormalPass={false}>
+            <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
+          </EffectComposer>
+        )}
       </Canvas>
     </div>
   );

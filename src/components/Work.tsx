@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
@@ -37,6 +37,22 @@ const projects = [
 const Work = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
+
+  const handleImageTilt = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const el = imageWrapperRef.current;
+    if (!el || window.innerWidth <= 1024) return;
+    const rect = el.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -12;
+    el.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${y}deg) scale(1.02)`;
+  }, []);
+
+  const resetImageTilt = useCallback(() => {
+    if (imageWrapperRef.current) {
+      imageWrapperRef.current.style.transform = "";
+    }
+  }, []);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -112,7 +128,13 @@ const Work = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="carousel-image-wrapper">
+                    <div
+                      className="carousel-image-wrapper"
+                      ref={index === currentIndex ? imageWrapperRef : undefined}
+                      onMouseMove={index === currentIndex ? handleImageTilt : undefined}
+                      onMouseLeave={index === currentIndex ? resetImageTilt : undefined}
+                      style={{ transition: "transform 0.15s ease-out", transformStyle: "preserve-3d" }}
+                    >
                       <WorkImage
                         image={project.image}
                         alt={project.title}

@@ -9,6 +9,9 @@ import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
 import setSplitText from "./utils/splitText";
+import ParticleNetwork from "./ParticleNetwork";
+import MouseSpotlight from "./MouseSpotlight";
+import ScrollProgress from "./ScrollProgress";
 
 const TechStack = lazy(() => import("./TechStack"));
 
@@ -31,6 +34,20 @@ const MainContainer = ({ children }: PropsWithChildren) => {
 
   return (
     <div className="container-main">
+      {/* Background effects */}
+      <ParticleNetwork />
+      <MouseSpotlight />
+      <ScrollProgress />
+
+      {/* Aurora background */}
+      <div className="aurora-bg">
+        <div className="aurora-layer aurora-1" />
+        <div className="aurora-layer aurora-2" />
+      </div>
+
+      {/* Film grain overlay */}
+      <div className="film-grain" />
+
       <Cursor />
       <Navbar />
       <SocialIcons />

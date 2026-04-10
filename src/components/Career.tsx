@@ -1,6 +1,33 @@
+import { useRef, useCallback } from "react";
 import "./styles/Career.css";
 
 const Career = () => {
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const card = cardsRef.current[index];
+    if (!card || window.innerWidth <= 1024) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    card.style.setProperty("--tilt-x", `${x}px`);
+    card.style.setProperty("--tilt-y", `${y}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback((index: number) => {
+    const card = cardsRef.current[index];
+    if (!card) return;
+    card.style.transform = "";
+  }, []);
+
   return (
     <div className="career-section section-container">
       <div className="career-container">
@@ -12,7 +39,13 @@ const Career = () => {
           <div className="career-timeline">
             <div className="career-dot"></div>
           </div>
-          <div className="career-info-box">
+          <div
+            className="career-info-box tilt-card"
+            ref={(el) => { cardsRef.current[0] = el; }}
+            onMouseMove={(e) => handleMouseMove(e, 0)}
+            onMouseLeave={() => handleMouseLeave(0)}
+          >
+            <div className="tilt-card-shine" />
             <div className="career-info-in">
               <div className="career-role">
                 <h4>AI & Automation Engineer</h4>
@@ -28,7 +61,13 @@ const Career = () => {
               reporting time by 50%.
             </p>
           </div>
-          <div className="career-info-box">
+          <div
+            className="career-info-box tilt-card"
+            ref={(el) => { cardsRef.current[1] = el; }}
+            onMouseMove={(e) => handleMouseMove(e, 1)}
+            onMouseLeave={() => handleMouseLeave(1)}
+          >
+            <div className="tilt-card-shine" />
             <div className="career-info-in">
               <div className="career-role">
                 <h4>SAP Consultant</h4>
@@ -43,7 +82,13 @@ const Career = () => {
               through automated SAP queries and Crystal Reports.
             </p>
           </div>
-          <div className="career-info-box">
+          <div
+            className="career-info-box tilt-card"
+            ref={(el) => { cardsRef.current[2] = el; }}
+            onMouseMove={(e) => handleMouseMove(e, 2)}
+            onMouseLeave={() => handleMouseLeave(2)}
+          >
+            <div className="tilt-card-shine" />
             <div className="career-info-in">
               <div className="career-role">
                 <h4>Business Automation Intern</h4>

@@ -106,8 +106,34 @@
 
 .career-info-box:hover {
   border-color: rgba(94, 234, 212, 0.15);
-  transform: translateY(-4px);
   box-shadow: 0 8px 40px rgba(94, 234, 212, 0.06), 0 0 0 1px rgba(94, 234, 212, 0.08);
+}
+
+/* ── 3D Tilt Card ── */
+.tilt-card {
+  transition: transform 0.15s ease-out, border-color 0.4s, box-shadow 0.4s;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-card-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    400px circle at var(--tilt-x, 50%) var(--tilt-y, 50%),
+    rgba(94, 234, 212, 0.12) 0%,
+    rgba(167, 139, 250, 0.06) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tilt-card:hover .tilt-card-shine {
+  opacity: 1;
 }
 
 .career-info-box p {
