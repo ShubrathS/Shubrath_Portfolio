@@ -5,6 +5,20 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 const projects = [
   {
+    title: "Operatik",
+    category: "SaaS / Workflow Automation ERP",
+    tools: "Full-Stack, React, Custom Dashboards",
+    image: "/images/project_operatik.png",
+    link: "",
+  },
+  {
+    title: "Arla iOS Assistant",
+    category: "AI Mobile App / iOS Development",
+    tools: "SwiftUI, MVVM, Anthropic LLM API",
+    image: "/images/project_arla.png",
+    link: "",
+  },
+  {
     title: "LLM Fairness & Bias Research",
     category: "Generative AI / NLP Research",
     tools: "Python, NLP, Hugging Face, StereoSet, CrowS-Pairs, BBQ",

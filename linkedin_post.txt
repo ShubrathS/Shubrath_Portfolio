@@ -1,0 +1,20 @@
+Why send a standard 2D resume when you can engineer a responsive, physics-based 3D world? 🌍
+
+I'm incredibly excited to launch my new interactive developer portfolio! Over the past few weeks, I challenged myself to move beyond a standard UI and build a high-performance web experience from scratch.
+
+In this short 43-second sneak peek, you can see my custom 3D avatar and the physics-based interactions. What you *don't* see in the video is the engineering that powers it under the hood:
+
+⚛️ React & TypeScript (built with Vite)
+🧊 Three.js & React Three Fiber (for all 3D rendering)
+🎬 GSAP (for smooth, high-performance animations)
+⚙️ Rapier (for interactive 3D physics)
+
+The biggest challenge wasn't just making it look good—it was performance optimization. I had to ensure the 3D .glb assets were compressed and loaded fast, frame rates didn't drop when physics were applied, and complex React state correctly synced with the external 3D canvases across all devices.
+
+I’m currently seeking new Software Engineer roles! If your team is tackling tough engineering, architecture, or performance challenges, I’d love to connect and chat.
+
+🔗 Experience it live here: https://www.shubrathshakyavanshi.com
+
+Let me know what you think in the comments, and try not to break the physics! 🐛
+
+#buildinpublic #webperf #javascript #softwareengineering #threejs #reactjs #hiring #softwaredeveloper #opentowork
