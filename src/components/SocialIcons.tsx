@@ -1,5 +1,6 @@
 import {
   FaGithub,
+  FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
@@ -74,6 +75,15 @@ const SocialIcons = () => {
             rel="noreferrer"
           >
             <FaLinkedinIn />
+          </a>
+        </span>
+        <span>
+          <a
+            href="https://www.instagram.com/ssshubrath/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaInstagram />
           </a>
         </span>
         <span>

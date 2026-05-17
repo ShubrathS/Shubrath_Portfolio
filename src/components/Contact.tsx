@@ -64,6 +64,15 @@ const Contact = () => {
             >
               LinkedIn <MdArrowOutward />
             </a>
+            <a
+              href="https://www.instagram.com/ssshubrath/"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="disable"
+              className="contact-social"
+            >
+              Instagram <MdArrowOutward />
+            </a>
           </div>
         </div>
         <div className="contact-footer">
