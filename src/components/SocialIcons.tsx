@@ -79,19 +79,19 @@ const SocialIcons = () => {
         </span>
         <span>
           <a
+            href="mailto:ssshubrath@gmail.com"
+            rel="noreferrer"
+          >
+            <MdEmail />
+          </a>
+        </span>
+        <span>
+          <a
             href="https://www.instagram.com/ssshubrath/"
             target="_blank"
             rel="noreferrer"
           >
             <FaInstagram />
-          </a>
-        </span>
-        <span>
-          <a
-            href="mailto:ssshubrath@gmail.com"
-            rel="noreferrer"
-          >
-            <MdEmail />
           </a>
         </span>
       </div>
