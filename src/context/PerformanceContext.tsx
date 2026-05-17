@@ -15,24 +15,24 @@ interface PerformanceContextType {
 
 const defaults: Record<QualityLevel, Omit<PerformanceContextType, "quality" | "isMobile">> = {
   high: {
-    sphereCount: 30,
-    particleCount: 120,
+    sphereCount: 20,
+    particleCount: 80,
     enablePostProcessing: true,
     enableParticles: true,
     enableMouseEffects: true,
-    pixelRatio: Math.min(window.devicePixelRatio, 2),
+    pixelRatio: Math.min(window.devicePixelRatio, 1.75),
   },
   medium: {
-    sphereCount: 18,
-    particleCount: 70,
-    enablePostProcessing: true,
+    sphereCount: 12,
+    particleCount: 50,
+    enablePostProcessing: false,
     enableParticles: true,
     enableMouseEffects: true,
     pixelRatio: Math.min(window.devicePixelRatio, 1.5),
   },
   low: {
-    sphereCount: 10,
-    particleCount: 40,
+    sphereCount: 8,
+    particleCount: 30,
     enablePostProcessing: false,
     enableParticles: true,
     enableMouseEffects: false,

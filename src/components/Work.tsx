@@ -5,6 +5,13 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 const projects = [
   {
+    title: "Nebulux",
+    category: "Autonomous Multi-Agent AI Orchestration",
+    tools: "Node.js, WebSockets, Claude, Gemini, Kimi K2.6, Gemma 4, Canvas",
+    image: "/images/project_nebulux.png",
+    link: "",
+  },
+  {
     title: "Operatik",
     category: "SaaS / Workflow Automation ERP",
     tools: "Full-Stack, React, Custom Dashboards",

@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import "./styles/Cursor.css";
-import gsap from "gsap";
 
 const TRAIL_COUNT = 5;
 
@@ -9,26 +8,30 @@ const Cursor = () => {
   const trailRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
     let hover = false;
-    const cursor = cursorRef.current!;
+    let pinned: { x: number; y: number } | null = null;
     const mousePos = { x: 0, y: 0 };
     const cursorPos = { x: 0, y: 0 };
     const trailPositions = Array.from({ length: TRAIL_COUNT }, () => ({ x: 0, y: 0 }));
+    let raf = 0;
 
-    document.addEventListener("mousemove", (e) => {
+    const onMouseMove = (e: MouseEvent) => {
       mousePos.x = e.clientX;
       mousePos.y = e.clientY;
-    });
+    };
 
-    requestAnimationFrame(function loop() {
+    const loop = () => {
       if (!hover) {
-        const delay = 6;
-        cursorPos.x += (mousePos.x - cursorPos.x) / delay;
-        cursorPos.y += (mousePos.y - cursorPos.y) / delay;
-        gsap.to(cursor, { x: cursorPos.x, y: cursorPos.y, duration: 0.1 });
+        cursorPos.x += (mousePos.x - cursorPos.x) / 6;
+        cursorPos.y += (mousePos.y - cursorPos.y) / 6;
+        cursor.style.transform = `translate3d(${cursorPos.x}px, ${cursorPos.y}px, 0)`;
+      } else if (pinned) {
+        cursor.style.transform = `translate3d(${pinned.x}px, ${pinned.y}px, 0)`;
       }
 
-      // Update trail positions with increasing delay
       for (let i = 0; i < TRAIL_COUNT; i++) {
         const target = i === 0 ? cursorPos : trailPositions[i - 1];
         const speed = 0.15 - i * 0.02;
@@ -37,39 +40,53 @@ const Cursor = () => {
 
         const trail = trailRefs.current[i];
         if (trail) {
-          trail.style.transform = `translate(${trailPositions[i].x}px, ${trailPositions[i].y}px)`;
+          trail.style.transform = `translate3d(${trailPositions[i].x}px, ${trailPositions[i].y}px, 0)`;
         }
       }
 
-      requestAnimationFrame(loop);
+      raf = requestAnimationFrame(loop);
+    };
+
+    const onMouseOver = (e: Event) => {
+      const target = e.currentTarget as HTMLElement;
+      const rect = target.getBoundingClientRect();
+      if (target.dataset.cursor === "icons") {
+        cursor.classList.add("cursor-icons");
+        pinned = { x: rect.left, y: rect.top };
+        cursor.style.setProperty("--cursorH", `${rect.height}px`);
+        hover = true;
+      }
+      if (target.dataset.cursor === "disable") {
+        cursor.classList.add("cursor-disable");
+      }
+    };
+    const onMouseOut = () => {
+      cursor.classList.remove("cursor-disable", "cursor-icons");
+      hover = false;
+      pinned = null;
+    };
+
+    const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-cursor]"));
+    targets.forEach((el) => {
+      el.addEventListener("mouseover", onMouseOver);
+      el.addEventListener("mouseout", onMouseOut);
     });
 
-    document.querySelectorAll("[data-cursor]").forEach((item) => {
-      const element = item as HTMLElement;
-      element.addEventListener("mouseover", (e: MouseEvent) => {
-        const target = e.currentTarget as HTMLElement;
-        const rect = target.getBoundingClientRect();
+    document.addEventListener("mousemove", onMouseMove);
+    raf = requestAnimationFrame(loop);
 
-        if (element.dataset.cursor === "icons") {
-          cursor.classList.add("cursor-icons");
-          gsap.to(cursor, { x: rect.left, y: rect.top, duration: 0.1 });
-          cursor.style.setProperty("--cursorH", `${rect.height}px`);
-          hover = true;
-        }
-        if (element.dataset.cursor === "disable") {
-          cursor.classList.add("cursor-disable");
-        }
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener("mousemove", onMouseMove);
+      targets.forEach((el) => {
+        el.removeEventListener("mouseover", onMouseOver);
+        el.removeEventListener("mouseout", onMouseOut);
       });
-      element.addEventListener("mouseout", () => {
-        cursor.classList.remove("cursor-disable", "cursor-icons");
-        hover = false;
-      });
-    });
+    };
   }, []);
 
   return (
     <>
-      {/* Trail dots */}
       {Array.from({ length: TRAIL_COUNT }).map((_, i) => (
         <div
           key={i}
@@ -82,7 +99,6 @@ const Cursor = () => {
           }}
         />
       ))}
-      {/* Main cursor */}
       <div className="cursor-main" ref={cursorRef}></div>
     </>
   );

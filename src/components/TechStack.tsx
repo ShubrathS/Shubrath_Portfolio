@@ -135,27 +135,37 @@ const TechStack = () => {
   );
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
-      setIsActive(scrollY > threshold);
-    };
-    document.querySelectorAll(".header a").forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", () => {
-        const interval = setInterval(() => {
-          handleScroll();
-        }, 10);
-        setTimeout(() => {
-          clearInterval(interval);
-        }, 1000);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const work = document.getElementById("work");
+        if (!work) {
+          ticking = false;
+          return;
+        }
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const threshold = work.getBoundingClientRect().top + scrollY - window.innerHeight;
+        setIsActive(scrollY > threshold);
+        ticking = false;
       });
-    });
-    window.addEventListener("scroll", handleScroll);
+    };
+
+    const headerLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(".header a")
+    );
+    const onLinkClick = () => {
+      // Re-check after smooth-scroll settles
+      window.setTimeout(handleScroll, 600);
+    };
+    headerLinks.forEach((el) => el.addEventListener("click", onLinkClick));
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      headerLinks.forEach((el) => el.removeEventListener("click", onLinkClick));
     };
   }, []);
 
@@ -180,7 +190,7 @@ const TechStack = () => {
 
       <Canvas
         shadows
-        gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
+        gl={{ alpha: true, stencil: false, depth: true, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => {
           state.gl.toneMappingExposure = 1.5;

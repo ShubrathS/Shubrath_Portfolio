@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@300;400;500&display=swap");
-
 :root {
   font-family: "Geist", sans-serif;
 
@@ -15,9 +13,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
   --accentColor: #5eead4;
   --accentColor2: #a78bfa;
   --accentColor3: #38bdf8;
@@ -28,6 +23,27 @@
   --cardBorder: rgba(255, 255, 255, 0.06);
   --vh: 100vh;
   --vh: 100svh;
+}
+
+/* Disable text selection on chrome/UI elements, but keep it on real content */
+.cursor-main, .cursor-trail, .navbar, .header, button, .carousel-arrow, .carousel-dot,
+.work-link, .character-container, .loading-screen, .loaderGame, .loading-marquee {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* Visually hidden but accessible to screen readers / crawlers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 h1,
