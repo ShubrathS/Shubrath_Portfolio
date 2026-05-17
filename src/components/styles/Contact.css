@@ -46,33 +46,84 @@
 .contact-flex {
   display: flex;
   justify-content: space-between;
-  gap: 40px;
+  gap: 24px;
+  align-items: stretch;
 }
 
+/* Frosted-glass card — matches Career section's aesthetic */
 .contact-box {
   display: flex;
   flex-direction: column;
   flex: 1;
   position: relative;
+  padding: 28px 30px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
-/* Subtle floating dot on box headers */
+/* Radial glow ripple on hover */
 .contact-box::before {
   content: "";
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 4px;
-  height: 4px;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(94, 234, 212, 0.07) 0%, transparent 70%);
   border-radius: 50%;
-  background: var(--accentColor);
-  box-shadow: 0 0 8px var(--accentColor);
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .contact-box:hover::before {
+  width: 500px;
+  height: 500px;
+}
+
+/* Animated gradient border ring */
+.contact-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent, rgba(94, 234, 212, 0.3), rgba(167, 139, 250, 0.3), transparent);
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: borderSweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.contact-box:hover::after {
   opacity: 1;
+}
+
+.contact-box:hover {
+  border-color: rgba(94, 234, 212, 0.15);
+  background: rgba(255, 255, 255, 0.035);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(94, 234, 212, 0.05),
+              0 0 0 1px rgba(94, 234, 212, 0.06);
+}
+
+/* Ensure all content sits above the radial ripple */
+.contact-box > * {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-box-connect {
@@ -80,24 +131,30 @@
 }
 
 .contact-box-edu {
-  flex: 1.5;
+  flex: 1.4;
 }
 
 .contact-box-social {
-  flex: 0.8;
+  flex: 0.9;
 }
 
 .contact-flex h4 {
   font-weight: 500;
   margin: 0;
-  margin-bottom: 8px;
-  opacity: 0.8;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  opacity: 0.85;
   font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--accentColor);
   transition: text-shadow 0.3s ease;
+  border-bottom: 1px solid rgba(94, 234, 212, 0.12);
+}
+
+.contact-box-edu h4:not(:first-of-type) {
+  margin-top: 8px;
 }
 
 .contact-box:hover h4 {
@@ -191,15 +248,20 @@ a.contact-social:hover svg {
   transform: translate(3px, -3px);
 }
 
-/* Footer row */
+/* Footer row — small frosted strip matching the card aesthetic */
 .contact-footer {
-  margin-top: 50px;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 32px;
+  padding: 18px 28px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
 
 /* Animated footer border */
@@ -286,7 +348,11 @@ a.contact-social:hover svg {
 @media only screen and (max-width: 900px) {
   .contact-flex {
     flex-direction: column;
-    gap: 30px;
+    gap: 18px;
+  }
+
+  .contact-box {
+    padding: 22px 24px;
   }
 
   .contact-flex p {
@@ -294,7 +360,7 @@ a.contact-social:hover svg {
   }
 
   .contact-flex h4 {
-    margin-top: 10px;
+    margin-top: 0;
   }
 
   .contact-section {
@@ -310,5 +376,6 @@ a.contact-social:hover svg {
     flex-direction: column;
     gap: 10px;
     text-align: center;
+    padding: 18px 22px;
   }
 }
