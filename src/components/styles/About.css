@@ -86,24 +86,20 @@
   text-shadow: 0 0 12px rgba(94, 234, 212, 0.25);
 }
 
-/* Highlight — gradient text for metrics + project names */
+/* Highlight — solid sky-blue for metrics (always visible) */
 .about-me p .highlight {
   font-weight: 700;
-  background: linear-gradient(135deg, #5eead4 0%, #a78bfa 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--accentColor3);
   letter-spacing: 0.4px;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
 }
 
-/* Project name — gradient + tag-style spacing */
+/* Project name — violet with glow, tag-style emphasis */
 .about-me p .project {
-  font-weight: 600;
-  background: linear-gradient(135deg, #5eead4, #38bdf8);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  color: var(--accentColor2);
   letter-spacing: 0.4px;
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
 }
 
 /* Decorative accent dot */
