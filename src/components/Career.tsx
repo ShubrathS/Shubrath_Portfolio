@@ -51,7 +51,7 @@ const Career = () => {
                 <h4>AI & Automation Engineer</h4>
                 <h5>SSPACIA India Pvt. Ltd.</h5>
               </div>
-              <h3>2025 +</h3>
+              <h3>2025+</h3>
             </div>
             <p>
               Architected production GenAI workflows orchestrating Claude,
@@ -75,7 +75,7 @@ const Career = () => {
                 <h4>SAP Consultant</h4>
                 <h5>Mindra Group (Reliance Industries Ltd.)</h5>
               </div>
-              <h3>2023–25</h3>
+              <h3>23–25</h3>
             </div>
             <p>
               Migrated 50,000+ records to a new SAP Business One system while
