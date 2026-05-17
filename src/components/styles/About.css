@@ -56,35 +56,54 @@
   position: relative;
 }
 
-/* Gradient shimmer sweep on the about paragraphs */
+/* Bio paragraphs — solid readable text with subtle accent rail on the left */
 .about-me p {
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 30px;
-  letter-spacing: 0.5px;
-  margin: 18px 0;
-  background: linear-gradient(
-    90deg,
-    #ffffff 0%,
-    #ffffff 40%,
-    rgba(94, 234, 212, 0.9) 50%,
-    #ffffff 60%,
-    rgba(255,255,255,0.6) 100%
-  );
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: aboutShimmer 8s ease-in-out infinite;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.2px;
+  margin: 0 0 18px;
+  color: rgba(235, 235, 240, 0.88);
+  padding-left: 18px;
+  border-left: 1px solid rgba(94, 234, 212, 0.18);
+  position: relative;
+  transition: border-color 0.4s ease;
+}
+
+.about-me p:hover {
+  border-left-color: rgba(94, 234, 212, 0.55);
 }
 
 .about-me p + p {
-  margin-top: 14px;
+  margin-top: 8px;
 }
 
-@keyframes aboutShimmer {
-  0%, 100% { background-position: 100% 50%; }
-  50% { background-position: 0% 50%; }
+/* Accent word — teal, slightly heavier, soft glow */
+.about-me p .accent {
+  color: var(--accentColor);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 12px rgba(94, 234, 212, 0.25);
+}
+
+/* Highlight — gradient text for metrics + project names */
+.about-me p .highlight {
+  font-weight: 700;
+  background: linear-gradient(135deg, #5eead4 0%, #a78bfa 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.4px;
+}
+
+/* Project name — gradient + tag-style spacing */
+.about-me p .project {
+  font-weight: 600;
+  background: linear-gradient(135deg, #5eead4, #38bdf8);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.4px;
 }
 
 /* Decorative accent dot */
@@ -131,13 +150,13 @@
     width: 50%;
   }
   .about-me p {
-    font-size: 1.15vw;
-    line-height: 1.6vw;
+    font-size: 1.05vw;
+    line-height: 1.75;
   }
 }
 @media only screen and (min-width: 1950px) {
   .about-me p {
-    font-size: 1.4rem;
-    line-height: 1.95rem;
+    font-size: 1.3rem;
+    line-height: 1.75;
   }
 }
