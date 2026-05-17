@@ -29,7 +29,7 @@ const Contact = () => {
           <div className="contact-box contact-box-edu">
             <h4>Education</h4>
             <p>
-              B.Tech/B.E. Computer Engineering
+              B.Tech in Computer Engineering
               <br />
               Parul Institute of Engineering & Technology
               <br />
@@ -37,17 +37,17 @@ const Contact = () => {
             </p>
             <h4>Certifications</h4>
             <p>
-              AWS Cloud Practitioner
+              Machine Learning — Internshala
               <br />
-              Google AI/ML Professional
+              Cybersecurity Essentials — Cisco
               <br />
-              UiPath RPA Developer
+              Google Data Foundations — Google
             </p>
           </div>
           <div className="contact-box contact-box-social">
             <h4>Social</h4>
             <a
-              href="https://github.com/shubrath"
+              href="https://github.com/shubraths"
               target="_blank"
               rel="noreferrer"
               data-cursor="disable"
@@ -56,7 +56,7 @@ const Contact = () => {
               GitHub <MdArrowOutward />
             </a>
             <a
-              href="https://www.linkedin.com/in/shubrath/"
+              href="https://www.linkedin.com/in/shubrath-shakyavanshi/"
               target="_blank"
               rel="noreferrer"
               data-cursor="disable"

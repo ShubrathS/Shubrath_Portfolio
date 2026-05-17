@@ -49,16 +49,18 @@ const Career = () => {
             <div className="career-info-in">
               <div className="career-role">
                 <h4>AI & Automation Engineer</h4>
-                <h5>Sapacia India Pvt. Ltd.</h5>
+                <h5>SSPACIA India Pvt. Ltd.</h5>
               </div>
-              <h3>2025</h3>
+              <h3>2025 — Present</h3>
             </div>
             <p>
-              Architected a custom ERP system unifying inventory, procurement &
-              task tracking. Engineered 15+ business automations, built GenAI /
-              LLM-powered workflows with CrewAI & AutoGen, and implemented RAG
-              pipelines with LangChain & vector databases. Reduced manual
-              reporting time by 50%.
+              Architected production GenAI workflows orchestrating Claude,
+              GPT-4, and Gemini via CrewAI and AutoGen multi-agent pipelines.
+              Built end-to-end RAG systems with LangChain, LlamaIndex, and
+              vector DBs (Pinecone, FAISS, Weaviate). Engineered AI
+              microservices into a custom ERP, unifying 5+ tools and improving
+              workflow efficiency by 40%. Established MLOps with MLflow and
+              CI/CD across AWS, Azure, and GCP; cut manual reporting by 50%.
             </p>
           </div>
           <div
@@ -71,15 +73,15 @@ const Career = () => {
             <div className="career-info-in">
               <div className="career-role">
                 <h4>SAP Consultant</h4>
-                <h5>Mindra Group (Reliance Industry Ltd.) </h5>
+                <h5>Mindra Group (Reliance Industries Ltd.)</h5>
               </div>
-              <h3>23–25</h3>
+              <h3>2023 — 2025</h3>
             </div>
             <p>
-              Ensured 99%+ data integrity with full-cycle SAP Business One
-              implementation, migrating 50,000+ records with zero data loss.
-              Trained 25+ end-users and reduced report generation time by 35%
-              through automated SAP queries and Crystal Reports.
+              Migrated 50,000+ records to a new SAP Business One system while
+              maintaining 99%+ data integrity. Automated Crystal Reports
+              workflows and SAP queries, cutting report generation time by
+              35%.
             </p>
           </div>
           <div

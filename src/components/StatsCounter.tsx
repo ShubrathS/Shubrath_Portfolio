@@ -8,8 +8,8 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 2.5, suffix: "+", label: "Years Experience" },
-  { value: 15, suffix: "+", label: "Automations Built" },
+  { value: 3, suffix: "+", label: "Years Experience" },
+  { value: 40, suffix: "%", label: "Workflow Efficiency Gain" },
   { value: 50, suffix: "%", label: "Report Time Reduced" },
   { value: 50000, suffix: "+", label: "Records Migrated" },
 ];
