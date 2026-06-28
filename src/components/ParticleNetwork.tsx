@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { usePerformance } from "../context/PerformanceContext";
+import { usePerformance } from "../context/usePerformance";
 
 interface Particle {
   x: number;

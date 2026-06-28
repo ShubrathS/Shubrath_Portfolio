@@ -33,7 +33,7 @@ export function setCharTimeline(
     },
   });
 
-  let neckBone = character?.getObjectByName("Neck");
+  const neckBone = character?.getObjectByName("Neck");
 
   if (window.innerWidth > 1024) {
     if (character) {

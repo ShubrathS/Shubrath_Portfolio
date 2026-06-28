@@ -10,7 +10,7 @@ import {
   CylinderCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
-import { usePerformance } from "../context/PerformanceContext";
+import { usePerformance } from "../context/usePerformance";
 
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [

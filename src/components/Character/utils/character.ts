@@ -21,11 +21,11 @@ const setCharacter = (
         async (gltf) => {
           const character = gltf.scene;
           await renderer.compileAsync(character, camera, scene);
-          character.traverse((child: any) => {
-            if (child.isMesh) {
+          character.traverse((child: THREE.Object3D) => {
+            if ((child as THREE.Mesh).isMesh) {
               const mesh = child as THREE.Mesh;
-              child.castShadow = !isMobile;
-              child.receiveShadow = !isMobile;
+              mesh.castShadow = !isMobile;
+              mesh.receiveShadow = !isMobile;
               mesh.frustumCulled = true;
             }
           });

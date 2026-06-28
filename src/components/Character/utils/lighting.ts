@@ -34,10 +34,11 @@ const setLighting = (scene: THREE.Scene) => {
     scene.environmentIntensity = 0;
   }
 
-  function setPointLight(screenLight: any) {
+  function setPointLight(screenLight: THREE.Mesh | null) {
     if (!screenLight) return;
-    if (screenLight.material.opacity > 0.9) {
-      pointLight.intensity = screenLight.material.emissiveIntensity * 20;
+    const material = screenLight.material as THREE.MeshStandardMaterial;
+    if (material.opacity > 0.9) {
+      pointLight.intensity = material.emissiveIntensity * 20;
     } else {
       pointLight.intensity = 0;
     }

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import setCharacter from "./utils/character";
 import setLighting from "./utils/lighting";
-import { useLoading } from "../../context/LoadingProvider";
+import { useLoading } from "../../context/loadingContext";
 import handleResize from "./utils/resizeUtils";
 import {
   handleMouseMove,
@@ -11,7 +11,7 @@ import {
   handleTouchMove,
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
-import { setProgress } from "../Loading";
+import { setProgress } from "../utils/setProgress";
 
 const isMobile = window.innerWidth <= 1024;
 
@@ -25,7 +25,8 @@ const Scene = () => {
   useEffect(() => {
     if (!canvasDiv.current) return;
 
-    const rect = canvasDiv.current.getBoundingClientRect();
+    const mountNode = canvasDiv.current;
+    const rect = mountNode.getBoundingClientRect();
     const container = { width: rect.width, height: rect.height };
     const aspect = container.width / container.height;
     const scene = sceneRef.current;
@@ -39,7 +40,7 @@ const Scene = () => {
     renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1.5) : window.devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
-    canvasDiv.current.appendChild(renderer.domElement);
+    mountNode.appendChild(renderer.domElement);
 
     const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
     camera.position.set(0, 13.1, 24.7);
@@ -47,7 +48,7 @@ const Scene = () => {
     camera.updateProjectionMatrix();
 
     let headBone: THREE.Object3D | null = null;
-    let screenLight: any | null = null;
+    let screenLight: THREE.Mesh | null = null;
     let mixer: THREE.AnimationMixer | undefined;
     let character: THREE.Object3D | null = null;
     let rafId = 0;
@@ -61,13 +62,13 @@ const Scene = () => {
     loadCharacter().then((gltf) => {
       if (!gltf) return;
       const animations = setAnimations(gltf);
-      hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
+      if (hoverDivRef.current) animations.hover(gltf, hoverDivRef.current);
       mixer = animations.mixer;
       character = gltf.scene;
       setChar(character);
       scene.add(character);
       headBone = character.getObjectByName("Head") || null;
-      screenLight = character.getObjectByName("screenlight") || null;
+      screenLight = (character.getObjectByName("screenlight") as THREE.Mesh) || null;
       progress.loaded().then(() => {
         setTimeout(() => {
           light.turnOnLights();
@@ -164,11 +165,11 @@ const Scene = () => {
       }
       scene.clear();
       renderer.dispose();
-      if (canvasDiv.current && renderer.domElement.parentNode === canvasDiv.current) {
-        canvasDiv.current.removeChild(renderer.domElement);
+      if (renderer.domElement.parentNode === mountNode) {
+        mountNode.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [setLoading]);
 
   return (
     <div className="character-container">

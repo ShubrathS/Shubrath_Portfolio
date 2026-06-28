@@ -1,17 +1,9 @@
-import { createContext, useContext, useEffect, useState, PropsWithChildren } from "react";
-
-export type QualityLevel = "high" | "medium" | "low";
-
-interface PerformanceContextType {
-  quality: QualityLevel;
-  isMobile: boolean;
-  sphereCount: number;
-  particleCount: number;
-  enablePostProcessing: boolean;
-  enableParticles: boolean;
-  enableMouseEffects: boolean;
-  pixelRatio: number;
-}
+import { useEffect, useState, PropsWithChildren } from "react";
+import {
+  PerformanceContext,
+  PerformanceContextType,
+  QualityLevel,
+} from "./usePerformance";
 
 const defaults: Record<QualityLevel, Omit<PerformanceContextType, "quality" | "isMobile">> = {
   high: {
@@ -61,7 +53,8 @@ function detectQuality(): QualityLevel {
   const cores = navigator.hardwareConcurrency || 2;
 
   // Check device memory (Chrome only)
-  const memory = (navigator as any).deviceMemory || 4;
+  const memory =
+    (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 4;
 
   const isMobile = window.innerWidth <= 1024 || /Mobi|Android/i.test(navigator.userAgent);
 
@@ -75,8 +68,6 @@ function detectQuality(): QualityLevel {
 
   return "high";
 }
-
-const PerformanceContext = createContext<PerformanceContextType | null>(null);
 
 export const PerformanceProvider = ({ children }: PropsWithChildren) => {
   const [quality, setQuality] = useState<QualityLevel>("medium");
@@ -99,10 +90,4 @@ export const PerformanceProvider = ({ children }: PropsWithChildren) => {
       {children}
     </PerformanceContext.Provider>
   );
-};
-
-export const usePerformance = () => {
-  const ctx = useContext(PerformanceContext);
-  if (!ctx) throw new Error("usePerformance must be used within PerformanceProvider");
-  return ctx;
 };

@@ -3,41 +3,50 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { smoother, setSmoother } from "./smoother";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
-export let smoother: ScrollSmoother;
 
 const Navbar = () => {
   useEffect(() => {
-    smoother = ScrollSmoother.create({
-      wrapper: "#smooth-wrapper",
-      content: "#smooth-content",
-      smooth: 1.7,
-      speed: 1.7,
-      effects: true,
-      autoResize: true,
-      ignoreMobileResize: true,
-    });
+    // Reuse an existing instance if one is already alive (StrictMode double-mount / HMR)
+    setSmoother(
+      ScrollSmoother.get() ??
+        ScrollSmoother.create({
+          wrapper: "#smooth-wrapper",
+          content: "#smooth-content",
+          smooth: 1.7,
+          speed: 1.7,
+          effects: true,
+          autoResize: true,
+          ignoreMobileResize: true,
+        })
+    );
 
     smoother.scrollTop(0);
     smoother.paused(true);
 
-    let links = document.querySelectorAll(".header ul a");
-    links.forEach((elem) => {
-      let element = elem as HTMLAnchorElement;
-      element.addEventListener("click", (e) => {
-        if (window.innerWidth > 1024) {
-          e.preventDefault();
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href");
-          smoother.scrollTo(section, true, "top top");
-        }
-      });
-    });
-    window.addEventListener("resize", () => {
-      ScrollSmoother.refresh(true);
-    });
+    const onLinkClick = (e: Event) => {
+      if (window.innerWidth > 1024) {
+        e.preventDefault();
+        const elem = e.currentTarget as HTMLAnchorElement;
+        const section = elem.getAttribute("data-href");
+        if (section) smoother.scrollTo(section, true, "top top");
+      }
+    };
+
+    const links = document.querySelectorAll(".header ul a");
+    links.forEach((elem) => elem.addEventListener("click", onLinkClick));
+
+    const onResize = () => ScrollSmoother.refresh(true);
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      links.forEach((elem) => elem.removeEventListener("click", onLinkClick));
+      window.removeEventListener("resize", onResize);
+      smoother?.kill();
+    };
   }, []);
   return (
     <>
