@@ -163,6 +163,21 @@ const Scene = () => {
       if (touchTarget && onTouchMoveBound) {
         touchTarget.removeEventListener("touchmove", onTouchMoveBound);
       }
+      // Stop animations and dispose the loaded model's GPU resources; scene.clear()
+      // only detaches nodes, it does not free geometries/materials/textures.
+      mixer?.stopAllAction();
+      scene.traverse((obj) => {
+        const mesh = obj as THREE.Mesh;
+        mesh.geometry?.dispose();
+        const material = mesh.material;
+        if (Array.isArray(material)) {
+          material.forEach((m) => m.dispose());
+        } else if (material) {
+          material.dispose();
+        }
+      });
+      const env = scene.environment;
+      if (env) env.dispose();
       scene.clear();
       renderer.dispose();
       if (renderer.domElement.parentNode === mountNode) {

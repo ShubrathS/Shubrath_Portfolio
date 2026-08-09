@@ -30,7 +30,10 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     return () => {
       window.removeEventListener("resize", resizeHandler);
     };
-  }, [isDesktopView]);
+    // Runs once: the handler reads window.innerWidth fresh each time, so it
+    // must not depend on isDesktopView (that caused listener teardown/re-add
+    // and an extra setSplitText() rebuild on every breakpoint cross).
+  }, []);
 
   return (
     <div className="container-main">

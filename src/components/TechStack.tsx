@@ -130,6 +130,10 @@ const TechStack = () => {
     () =>
       [...Array(sphereCount)].map(() => ({
         scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
+        // Pick the material once per sphere here, NOT during render —
+        // choosing it in JSX reassigned a random material on every re-render,
+        // causing visible texture flicker.
+        materialIndex: Math.floor(Math.random() * textures.length),
       })),
     [sphereCount]
   );
@@ -184,6 +188,15 @@ const TechStack = () => {
     );
   }, []);
 
+  // Dispose the per-mount materials on unmount so they don't leak GPU memory
+  // when TechStack unmounts (e.g. on viewport crossing the mobile breakpoint).
+  // The shared module-level textures/geometry are intentionally left alive.
+  useEffect(() => {
+    return () => {
+      materials.forEach((m) => m.dispose());
+    };
+  }, [materials]);
+
   return (
     <div className="techstack">
       <h2> My Techstack</h2>
@@ -213,8 +226,8 @@ const TechStack = () => {
           {spheres.map((props, i) => (
             <SphereGeo
               key={i}
-              {...props}
-              material={materials[Math.floor(Math.random() * materials.length)]}
+              scale={props.scale}
+              material={materials[props.materialIndex]}
               isActive={isActive}
             />
           ))}

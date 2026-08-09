@@ -26,17 +26,21 @@ const Loading = ({ percent }: { percent: number }) => {
   }, [percent]);
 
   useEffect(() => {
+    if (!isLoaded) return;
+    let cancelled = false;
+    let timer: number;
     import("./utils/initialFX").then((module) => {
-      if (isLoaded) {
-        setClicked(true);
-        setTimeout(() => {
-          if (module.initialFX) {
-            module.initialFX();
-          }
-          setIsLoading(false);
-        }, 900);
-      }
+      if (cancelled) return;
+      setClicked(true);
+      timer = window.setTimeout(() => {
+        module.initialFX?.();
+        setIsLoading(false);
+      }, 900);
     });
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [isLoaded, setIsLoading]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {

@@ -9,6 +9,7 @@ interface Props {
 const GlitchText = ({ text, className = "" }: Props) => {
   const [isGlitching, setIsGlitching] = useState(false);
   const intervalRef = useRef<number>();
+  const burstRef = useRef<number>();
 
   useEffect(() => {
     // Random glitch bursts every 3-8 seconds
@@ -16,12 +17,19 @@ const GlitchText = ({ text, className = "" }: Props) => {
       const delay = 3000 + Math.random() * 5000;
       intervalRef.current = window.setTimeout(() => {
         setIsGlitching(true);
-        setTimeout(() => setIsGlitching(false), 200 + Math.random() * 300);
+        burstRef.current = window.setTimeout(
+          () => setIsGlitching(false),
+          200 + Math.random() * 300
+        );
         scheduleGlitch();
       }, delay);
     };
     scheduleGlitch();
-    return () => clearTimeout(intervalRef.current);
+    // Clear both timers so no state update fires after unmount.
+    return () => {
+      clearTimeout(intervalRef.current);
+      clearTimeout(burstRef.current);
+    };
   }, []);
 
   return (

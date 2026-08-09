@@ -11,17 +11,22 @@ import HoverLinks from "./HoverLinks";
 
 const SocialIcons = () => {
   useEffect(() => {
-    const social = document.getElementById("social") as HTMLElement;
+    const social = document.getElementById("social");
+    if (!social) return;
+
+    const cleanups: Array<() => void> = [];
 
     social.querySelectorAll("span").forEach((item) => {
       const elem = item as HTMLElement;
-      const link = elem.querySelector("a") as HTMLElement;
+      const link = elem.querySelector("a") as HTMLElement | null;
+      if (!link) return;
 
       const rect = elem.getBoundingClientRect();
       let mouseX = rect.width / 2;
       let mouseY = rect.height / 2;
       let currentX = 0;
       let currentY = 0;
+      let raf = 0;
 
       const updatePosition = () => {
         currentX += (mouseX - currentX) * 0.1;
@@ -30,7 +35,7 @@ const SocialIcons = () => {
         link.style.setProperty("--siLeft", `${currentX}px`);
         link.style.setProperty("--siTop", `${currentY}px`);
 
-        requestAnimationFrame(updatePosition);
+        raf = requestAnimationFrame(updatePosition);
       };
 
       const onMouseMove = (e: MouseEvent) => {
@@ -50,10 +55,15 @@ const SocialIcons = () => {
 
       updatePosition();
 
-      return () => {
-        elem.removeEventListener("mousemove", onMouseMove);
-      };
+      cleanups.push(() => {
+        cancelAnimationFrame(raf);
+        document.removeEventListener("mousemove", onMouseMove);
+      });
     });
+
+    return () => {
+      cleanups.forEach((fn) => fn());
+    };
   }, []);
 
   return (
@@ -98,7 +108,7 @@ const SocialIcons = () => {
       <a
         className="resume-button"
         href="/Shubrath_Shakyavanshi_Resume.pdf"
-        download="Shubrath_Shakyavanshi_Resume.pdf"
+        download="Shubrath_Shakyavanshi_AI_Engineer.pdf"
         data-cursor="disable"
       >
         <HoverLinks text="RESUME" />

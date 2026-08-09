@@ -1,30 +1,33 @@
 import { useEffect, useRef } from "react";
 import "./styles/ScrollProgress.css";
+import { smoother } from "./smoother";
 
 const ScrollProgress = () => {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const wrapper = document.getElementById("smooth-wrapper");
-    if (!wrapper) return;
-
     const update = () => {
-      const scrollTop = wrapper.scrollTop || window.scrollY;
-      const docHeight = wrapper.scrollHeight - wrapper.clientHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      // ScrollSmoother transforms #smooth-content while #smooth-wrapper stays
+      // fixed, so wrapper.scrollTop is always 0 and the old math yielded 0%.
+      // Read the real scroll position from the smoother (falling back to native
+      // scroll before the smoother instance exists) against the content height.
+      const content = document.getElementById("smooth-content");
+      const scrollTop = smoother ? smoother.scrollTop() : window.scrollY;
+      const docHeight = (content?.scrollHeight ?? 0) - window.innerHeight;
+      const progress =
+        docHeight > 0
+          ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100))
+          : 0;
       if (barRef.current) {
         barRef.current.style.setProperty("--progress", `${progress}%`);
       }
     };
 
-    wrapper.addEventListener("scroll", update);
     window.addEventListener("scroll", update);
-
-    // Also update on GSAP ScrollSmoother scroll events
+    // ScrollSmoother scrolling doesn't fire native scroll events, so poll too.
     const interval = setInterval(update, 100);
 
     return () => {
-      wrapper.removeEventListener("scroll", update);
       window.removeEventListener("scroll", update);
       clearInterval(interval);
     };
