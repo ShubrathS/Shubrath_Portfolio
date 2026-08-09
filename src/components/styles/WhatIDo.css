@@ -26,11 +26,26 @@
   margin-bottom: 100px;
 }
 
-/* SplitText turns each character into its own transformed <div>, which becomes
-   a containing block and breaks an ancestor's background-clip: text. So the
-   gradient fill is applied per character as well as on the unsplit h2 (mobile,
-   where setSplitText() bails out early). */
-.what-box h2,
+/* Gradient text fill – applied on the h2 for mobile (unsplit) and on each
+   .split-char for desktop (after SplitText runs).  When both share the rule
+   the h2's own background-clip: text ghosts behind every character. */
+.what-box h2 {
+  background: linear-gradient(135deg, #ffffff 40%, #5eead4 70%, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: whatGradient 6s ease-in-out infinite;
+}
+
+/* Once SplitText wraps chars, disable the h2-level gradient so it doesn't
+   double-render behind each .split-char. */
+.what-box h2:has(.split-char) {
+  background: none;
+  -webkit-text-fill-color: transparent;
+  animation: none;
+}
+
 .what-box h2 .split-char {
   background: linear-gradient(135deg, #ffffff 40%, #5eead4 70%, #a78bfa);
   background-clip: text;
