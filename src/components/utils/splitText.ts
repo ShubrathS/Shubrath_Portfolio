@@ -61,6 +61,7 @@ export default function setSplitText() {
     title.split = new SplitText(title, {
       type: "chars,lines",
       linesClass: "split-line",
+      charsClass: "split-char",
     });
     title.anim = gsap.fromTo(
       title.split.chars,

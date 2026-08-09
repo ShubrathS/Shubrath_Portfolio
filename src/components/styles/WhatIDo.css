@@ -24,6 +24,14 @@
   font-weight: 600;
   margin-right: 10%;
   margin-bottom: 100px;
+}
+
+/* SplitText turns each character into its own transformed <div>, which becomes
+   a containing block and breaks an ancestor's background-clip: text. So the
+   gradient fill is applied per character as well as on the unsplit h2 (mobile,
+   where setSplitText() bails out early). */
+.what-box h2,
+.what-box h2 .split-char {
   background: linear-gradient(135deg, #ffffff 40%, #5eead4 70%, #a78bfa);
   background-clip: text;
   -webkit-background-clip: text;
@@ -40,10 +48,16 @@
 .hat-h2 {
   font-style: italic;
 }
-.do-h2 {
+.what-line-break {
+  display: block;
+}
+.do-h2,
+.what-box h2 .do-h2 .split-char {
   color: var(--accentColor);
+  background: none;
   -webkit-text-fill-color: var(--accentColor);
   text-shadow: 0 0 30px rgba(94, 234, 212, 0.4);
+  animation: none;
 }
 .what-box-in {
   flex-direction: column;
