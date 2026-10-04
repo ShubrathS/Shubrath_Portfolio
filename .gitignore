@@ -35,3 +35,5 @@ INTERVIEW_PREP.md
 drc_systems_email.txt
 linkedin_post.txt
 test.js
+.vercel
+.env*
