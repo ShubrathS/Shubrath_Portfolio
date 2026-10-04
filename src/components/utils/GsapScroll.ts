@@ -200,6 +200,45 @@ export function setAllTimeline() {
     }
   );
 
+  // ── Skills section reveal ──
+  gsap.fromTo(
+    ".skills-section h2, .skills-intro",
+    { opacity: 0, y: 40, filter: "blur(6px)" },
+    {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      duration: 1,
+      stagger: 0.1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".skills-section",
+        start: "top 80%",
+        end: "top 50%",
+        toggleActions: "play none none reverse",
+      },
+    }
+  );
+
+  gsap.fromTo(
+    ".skills-card",
+    { opacity: 0, y: 40, filter: "blur(6px)" },
+    {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".skills-grid",
+        start: "top 85%",
+        end: "top 50%",
+        toggleActions: "play none none reverse",
+      },
+    }
+  );
+
   // ── Work section reveal ──
   gsap.fromTo(
     ".work-section h2",

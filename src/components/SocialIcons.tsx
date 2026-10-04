@@ -72,6 +72,7 @@ const SocialIcons = () => {
         <span>
           <a
             href="https://github.com/shubraths"
+            aria-label="GitHub profile"
             target="_blank"
             rel="noreferrer"
           >
@@ -81,6 +82,7 @@ const SocialIcons = () => {
         <span>
           <a
             href="https://www.linkedin.com/in/shubrath-shakyavanshi/"
+            aria-label="LinkedIn profile"
             target="_blank"
             rel="noreferrer"
           >
@@ -90,6 +92,7 @@ const SocialIcons = () => {
         <span>
           <a
             href="mailto:ssshubrath@gmail.com"
+            aria-label="Email Shubrath"
             rel="noreferrer"
           >
             <MdEmail />
@@ -98,6 +101,7 @@ const SocialIcons = () => {
         <span>
           <a
             href="https://www.instagram.com/ssshubrath/"
+            aria-label="Instagram profile"
             target="_blank"
             rel="noreferrer"
           >
@@ -108,7 +112,7 @@ const SocialIcons = () => {
       <a
         className="resume-button"
         href="/Shubrath_Shakyavanshi_Resume.pdf"
-        download="Shubrath_Shakyavanshi_AI_Engineer.pdf"
+        download="Shubrath_Shakyavanshi_Software_Engineer.pdf"
         data-cursor="disable"
       >
         <HoverLinks text="RESUME" />

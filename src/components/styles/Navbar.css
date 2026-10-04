@@ -117,6 +117,20 @@
   filter: drop-shadow(0 0 12px rgba(94, 234, 212, 0.5));
 }
 
+/* Narrow phones: wrap the 4 links into a 2x2 block instead of a 4-row column,
+   which would otherwise reach down into the first section's heading. */
+@media only screen and (max-width: 499px) {
+  .header ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: start;
+    column-gap: 16px;
+    row-gap: 6px;
+    max-width: 170px;
+  }
+}
+
 @media only screen and (min-width: 500px) {
   .header {
     padding: 20px 0px;
@@ -134,7 +148,10 @@
     font-size: 18px;
   }
 }
-@media only screen and (min-width: 900px) {
+/* The centred LinkedIn URL (~387px) only gets its own lane once the viewport
+   is wide enough to clear the 4-link menu (~393px) on the right. Below roughly
+   1250px the two collide, so it stays hidden until there is real clearance. */
+@media only screen and (min-width: 1350px) {
   .navbar-connect {
     display: block;
   }
@@ -144,7 +161,9 @@
     padding: 35px 0px;
   }
   .header ul {
-    column-gap: 80px;
+    /* 4 links now share this row with the centred LinkedIn URL — a wider gap
+       pushes ABOUT into it between ~1200px and ~1400px. */
+    column-gap: 45px;
     font-size: 16px;
   }
   .header ul li {

@@ -53,12 +53,17 @@ export function initialFX() {
   );
 
   // ── Resume button entrance ──
+  // Below 768px the button relies on `transform: translateX(100%) rotateZ(-90deg)`
+  // to sit flush against the right edge. Animating `x` makes GSAP rewrite the
+  // whole transform as a pure rotation, dropping the translate and leaving the
+  // button stranded mid-screen — so only slide it where the transform is `none`.
+  const slideResume = window.innerWidth >= 768;
   gsap.fromTo(
     ".resume-button",
-    { opacity: 0, x: -20 },
+    { opacity: 0, ...(slideResume ? { x: -20 } : {}) },
     {
       opacity: 1,
-      x: 0,
+      ...(slideResume ? { x: 0 } : {}),
       duration: 0.8,
       ease: "power2.out",
       delay: 0.9,

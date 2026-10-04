@@ -8,10 +8,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 3, suffix: "+", label: "Years in AI Engineering" },
-  { value: 10, suffix: "+", label: "LLMs Integrated" },
-  { value: 5, suffix: "+", label: "Multi-Agent Systems" },
-  { value: 4, suffix: "+", label: "GenAI Projects Shipped" },
+  { value: 3, suffix: "+", label: "Years Building Software" },
+  { value: 50, suffix: "K+", label: "Records Migrated" },
+  { value: 40, suffix: "%", label: "Workflow Efficiency Gain" },
+  { value: 5, suffix: "+", label: "Tools Unified in One ERP" },
 ];
 
 const StatsCounter = () => {

@@ -86,22 +86,22 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>GENERATIVE AI & AGENTIC SYSTEMS</h3>
-              <h4>LLM-Powered Intelligent Workflows</h4>
+              <h3>BACKEND & API ENGINEERING</h3>
+              <h4>Services, Integrations & Microservices</h4>
               <p>
-                Building production-grade Generative AI workflows with ChatGPT,
-                Claude, Gemini, and Copilot. Designing multi-agent orchestration
-                using CrewAI and AutoGen with RAG pipelines, prompt chaining,
-                and semantic search for enterprise knowledge retrieval.
+                Designing and shipping backend services and REST APIs in
+                C#/.NET, Java, and Python. Cloud-native microservices on Azure
+                and AWS, backed by CI/CD pipelines, automated testing, and the
+                observability that makes production issues diagnosable.
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">LangChain</div>
-                <div className="what-tags">LlamaIndex</div>
-                <div className="what-tags">CrewAI</div>
-                <div className="what-tags">RAG Pipelines</div>
-                <div className="what-tags">Pinecone / FAISS</div>
-                <div className="what-tags">Prompt Engineering</div>
+                <div className="what-tags">C# / .NET</div>
+                <div className="what-tags">Spring Boot</div>
+                <div className="what-tags">FastAPI</div>
+                <div className="what-tags">REST APIs</div>
+                <div className="what-tags">Microservices</div>
+                <div className="what-tags">Docker / K8s</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -125,22 +125,22 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>AUTOMATION & DATA ENGINEERING</h3>
-              <h4>Enterprise Workflow Automation & ETL</h4>
+              <h3>GENERATIVE AI & AUTOMATION</h3>
+              <h4>LLM Workflows & Data Pipelines</h4>
               <p>
-                Engineering end-to-end business automations, custom ERP systems,
-                and automated ETL data pipelines. Streamlining operations with
-                Python, Google Apps Script, n8n, and SAP integrations — reducing
-                manual reporting time by 50%.
+                Shipping production GenAI features behind plain REST APIs — RAG
+                retrieval and multi-agent pipelines across Claude, GPT-4, and
+                Gemini — plus the ETL and workflow automation that cut manual
+                reporting effort in half.
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Python</div>
-                <div className="what-tags">SAP B1</div>
-                <div className="what-tags">Docker / K8s</div>
+                <div className="what-tags">RAG Pipelines</div>
+                <div className="what-tags">LangChain</div>
+                <div className="what-tags">Multi-Agent</div>
+                <div className="what-tags">PostgreSQL / ETL</div>
+                <div className="what-tags">GitHub Copilot</div>
                 <div className="what-tags">MLflow</div>
-                <div className="what-tags">CI/CD</div>
-                <div className="what-tags">AWS / Azure / GCP</div>
               </div>
               <div className="what-arrow"></div>
             </div>

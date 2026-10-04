@@ -18,14 +18,16 @@ const Landing = ({ children }: PropsWithChildren) => {
             </h1>
           </div>
           <div className="landing-info">
-            <h3>AI & Automation</h3>
+            <h3>Software Engineer</h3>
             <h2 className="landing-info-h2">
-              <div className="landing-h2-1">Engineer</div>
+              <div className="landing-h2-1">Backend</div>
               <div className="landing-h2-2">GenAI</div>
             </h2>
+            {/* Single words only: .landing-info is shrink-to-fit at 50% of the
+                viewport, so multi-word phrases wrap onto two lines on phones. */}
             <h2>
-              <div className="landing-h2-info">Specialist</div>
-              <div className="landing-h2-info-1">Full-Stack AI</div>
+              <div className="landing-h2-info">Cloud</div>
+              <div className="landing-h2-info-1">Agents</div>
             </h2>
           </div>
         </div>

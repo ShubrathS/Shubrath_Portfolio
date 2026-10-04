@@ -93,6 +93,23 @@ div.resume-button span {
     font-size: 28px;
   }
 }
+/* Below 768px the button is rotated flat against the right edge, floating over
+   whatever section is scrolled past. Without a backdrop its letters interleave
+   with the card text behind it; the pill makes it read as chrome, not content. */
+@media only screen and (max-width: 767px) {
+  .resume-button {
+    padding: 7px 14px;
+    border-radius: 12px 12px 0 0;
+    background: rgba(6, 10, 19, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(94, 234, 212, 0.18);
+    border-bottom: none;
+    color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 -2px 18px rgba(0, 0, 0, 0.45);
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .resume-button {
     transform: none;

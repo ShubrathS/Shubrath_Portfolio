@@ -54,13 +54,15 @@ const Career = () => {
               <h3>2025+</h3>
             </div>
             <p>
-              Architected production GenAI workflows orchestrating Claude,
-              GPT-4, and Gemini via CrewAI and AutoGen multi-agent pipelines.
-              Built end-to-end RAG systems with LangChain, LlamaIndex, and
-              vector DBs (Pinecone, FAISS, Weaviate). Engineered AI
-              microservices into a custom ERP, unifying 5+ tools and improving
-              workflow efficiency by 40%. Established MLOps with MLflow and
-              CI/CD across AWS, Azure, and GCP; cut manual reporting by 50%.
+              Folded 5+ disconnected tools into one cloud-native internal ERP by
+              building backend microservices and REST APIs, raising workflow
+              efficiency by 40%. Automated ETL pipelines in Python and SQL on
+              PostgreSQL with Flyway-versioned migrations, cutting manual
+              reporting by 50%. Established CI/CD, monitoring, and observability
+              across Azure and AWS; secured secrets and files with Key Vault,
+              Blob Storage, and S3, and cut API response times with Redis
+              caching. Shipped production GenAI features — RAG and multi-agent
+              pipelines across Claude, GPT-4, and Gemini — behind REST APIs.
             </p>
           </div>
           <div
@@ -78,10 +80,11 @@ const Career = () => {
               <h3>23–25</h3>
             </div>
             <p>
-              Migrated 50,000+ records to a new SAP Business One system while
-              maintaining 99%+ data integrity. Automated Crystal Reports
-              workflows and SAP queries, cutting report generation time by
-              35%.
+              Migrated 50,000+ business records into a new SAP Business One
+              platform at 99%+ data integrity, writing SQL validation scripts
+              and automating reconciliation. Cut report-generation time by 35%
+              by automating Crystal Reports workflows, and resolved production
+              data and reporting issues for finance and operations users.
             </p>
           </div>
           <div

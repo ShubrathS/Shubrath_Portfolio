@@ -7,35 +7,42 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          I'm <span className="accent">Shubrath Shakyavanshi</span>, an
-          AI &amp; Automation Engineer based in{" "}
-          <span className="accent">Ahmedabad</span> with three years of
-          experience designing production-grade Generative AI, RAG, and
-          multi-agent systems. At <span className="accent">SSPACIA India</span>,
-          I architect GenAI workflows that orchestrate{" "}
+          I'm <span className="accent">Shubrath Shakyavanshi</span>, a software
+          engineer based in <span className="accent">Ahmedabad</span> with about
+          three years of experience building, testing, and supporting backend
+          services and API integrations in{" "}
+          <span className="accent">C#/.NET</span>,{" "}
+          <span className="accent">Java</span>, and{" "}
+          <span className="accent">Python</span>. At{" "}
+          <span className="accent">SSPACIA India</span> I ship cloud-native
+          microservices on <span className="accent">Azure</span> and{" "}
+          <span className="accent">AWS</span> — with CI/CD pipelines, automated
+          testing, and observability behind them — and I built the GenAI layer
+          on top: RAG and multi-agent pipelines across{" "}
           <span className="accent">Claude</span>,{" "}
           <span className="accent">GPT-4</span>, and{" "}
-          <span className="accent">Gemini</span> through frameworks like{" "}
-          <span className="accent">CrewAI</span> and{" "}
-          <span className="accent">LangChain</span>, and I build MLOps
-          pipelines across <span className="accent">AWS</span>,{" "}
-          <span className="accent">Azure</span>, and{" "}
-          <span className="accent">GCP</span> — work that has delivered{" "}
-          <span className="highlight">40% efficiency gains</span> and a{" "}
-          <span className="highlight">50% reduction</span> in manual reporting.
+          <span className="accent">Gemini</span>, served as plain REST APIs.
+          That work folded 5+ disconnected tools into one internal ERP, lifting
+          workflow efficiency by{" "}
+          <span className="highlight">40%</span> and cutting manual reporting by{" "}
+          <span className="highlight">50%</span>.
         </p>
         <p className="para">
-          Outside the day job, I've built{" "}
-          <span className="project">Nebulux</span>, an autonomous multi-agent
-          “AI software factory” that coordinates specialized agents to plan,
-          code, and deploy full-stack apps;{" "}
-          <span className="project">Aria</span>, a privacy-first multilingual
-          iOS assistant with on-device storage in Hindi, Gujarati, and English;
-          and published research on LLM fairness using benchmarks like{" "}
+          Before that I spent a year and a half on{" "}
+          <span className="accent">SAP B1</span> for{" "}
+          <span className="accent">Reliance Industries</span>, migrating{" "}
+          <span className="highlight">50,000+</span> business records at{" "}
+          <span className="highlight">99%+</span> data integrity and automating
+          the reporting finance and operations ran on. Outside the day job I've
+          built <span className="project">Nebulux</span>, a distributed
+          multi-agent system coordinating specialized agents across four LLM
+          backends; <span className="project">Aria</span>, a privacy-first
+          multilingual iOS assistant with on-device storage in Hindi, Gujarati,
+          and English; and an open-source harness for evaluating LLM bias across{" "}
           <span className="accent">StereoSet</span>,{" "}
           <span className="accent">CrowS-Pairs</span>, and{" "}
           <span className="accent">BBQ</span>. What pulls me forward is the
-          less-glamorous half of GenAI — turning impressive demos into
+          less-glamorous half of this work — turning impressive demos into
           reliable, observable systems that actually hold up in production.
         </p>
         <StatsCounter />
