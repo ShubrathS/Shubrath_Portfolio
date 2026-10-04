@@ -34,7 +34,10 @@ const ParticleNetwork = () => {
 
     let width = window.innerWidth;
     let height = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio, 1.5);
+    // These are soft decorative dots behind the whole page; rendering them at
+    // 1.5x costs 2.25x the fill and per-frame texture upload for no visible
+    // gain, and this canvas repaints on every single frame.
+    const dpr = Math.min(window.devicePixelRatio, 1);
 
     const resize = () => {
       width = window.innerWidth;
@@ -164,10 +167,18 @@ const ParticleNetwork = () => {
 
     animFrameRef.current = requestAnimationFrame(animate);
 
+    // Don't burn frames animating a canvas nobody is looking at.
+    const onVisibilityChange = () => {
+      cancelAnimationFrame(animFrameRef.current);
+      if (!document.hidden) animFrameRef.current = requestAnimationFrame(animate);
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     return () => {
       cancelAnimationFrame(animFrameRef.current);
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("resize", resize);
     };
   }, [particleCount, enableParticles]);

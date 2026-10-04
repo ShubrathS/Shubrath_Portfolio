@@ -123,7 +123,23 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  // isActive is a one-way latch ("user has scrolled past work"), so it stays
+  // true for the rest of the page. Visibility is tracked separately so the
+  // render loop can idle whenever this section is actually off-screen.
+  const [inView, setInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const { sphereCount, enablePostProcessing, pixelRatio } = usePerformance();
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Generate spheres based on detected performance level
   const spheres = useMemo(
@@ -198,11 +214,15 @@ const TechStack = () => {
   }, [materials]);
 
   return (
-    <div className="techstack">
+    <div className="techstack" ref={sectionRef}>
       <h2> My Techstack</h2>
 
       <Canvas
         shadows
+        // The default loop ran physics, AO post-processing and a full
+        // 1920x1080 render every frame for the entire page. Only render while
+        // this section is actually on screen.
+        frameloop={inView ? "always" : "never"}
         gl={{ alpha: true, stencil: false, depth: true, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => {

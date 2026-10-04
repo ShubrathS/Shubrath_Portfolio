@@ -1,9 +1,15 @@
 import { SplitText } from "gsap/SplitText";
 import gsap from "gsap";
 import { smoother } from "../smoother";
+import setSplitText from "./splitText";
 
 export function initialFX() {
   document.body.style.overflowY = "auto";
+  // Flipping overflow is what makes the scrollbar appear. scrollbar-gutter
+  // should already have reserved that space, but if a browser ignores it the
+  // columns narrow here — after .para was split into fixed line boxes. Re-split
+  // so the lines are measured against the final width either way.
+  setSplitText();
   smoother.paused(false);
   document.getElementsByTagName("main")[0].classList.add("main-active");
   gsap.to("body", {

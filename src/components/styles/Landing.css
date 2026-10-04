@@ -252,6 +252,11 @@
   color: #ffffff;
   text-shadow: 0 0 30px rgba(94, 234, 212, 0.2);
   transition: text-shadow 0.3s ease;
+  /* SplitText wraps every character in its own element, so the browser is free
+     to break between any two of them — at 1600px the name rendered as
+     "SHAKYAVANS / HI". The <br> between the two names still breaks normally.
+     (.split-h2 already carries this guard for the landing h2s.) */
+  white-space: nowrap;
 }
 
 .landing-intro h1:hover {
@@ -449,6 +454,11 @@ h2.landing-info-h2 {
     transform: translate(0%, -50%);
   }
 
+  .landing-intro h1 {
+    font-size: min(40px, 3.2vw);
+    line-height: 1.05;
+  }
+
   .landing-info {
     bottom: auto;
     top: 51%;
@@ -490,8 +500,11 @@ h2.landing-info-h2 {
   }
 
   .landing-intro h1 {
-    font-size: 60px;
-    line-height: 55px;
+    /* Capped against the column width: .landing-intro is anchored by right:70%
+       so it only gets ~30% of the viewport. A flat 60px overflows that below
+       ~1850px, and with nowrap the box then grows off the left edge. */
+    font-size: min(60px, 3.2vw);
+    line-height: 1.05;
   }
 
   .landing-info h3 {

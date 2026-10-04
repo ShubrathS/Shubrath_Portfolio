@@ -16,7 +16,9 @@ const Navbar = () => {
         ScrollSmoother.create({
           wrapper: "#smooth-wrapper",
           content: "#smooth-content",
-          smooth: 1.7,
+          // smooth is the lerp duration: at 1.7 every wheel tick took 1.7s to
+          // settle, which reads as sluggish even at a solid frame rate.
+          smooth: 1,
           speed: 1.7,
           effects: true,
           autoResize: true,

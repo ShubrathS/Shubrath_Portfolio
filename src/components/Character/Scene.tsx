@@ -12,6 +12,7 @@ import {
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../utils/setProgress";
+import { usePerformance } from "../../context/usePerformance";
 
 const isMobile = window.innerWidth <= 1024;
 
@@ -20,6 +21,21 @@ const Scene = () => {
   const hoverDivRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef(new THREE.Scene());
   const { setLoading } = useLoading();
+  // This project already detects GPU/CPU class and publishes a pixelRatio cap;
+  // this scene was the one renderer ignoring it. Quality is detected after the
+  // first render, so read it through a ref and apply changes to the live
+  // renderer — putting it in the effect deps would tear down the WebGL context
+  // and re-download the 3MB model the moment detection resolves.
+  const { pixelRatio } = usePerformance();
+  const pixelRatioRef = useRef(pixelRatio);
+  pixelRatioRef.current = pixelRatio;
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+
+  useEffect(() => {
+    rendererRef.current?.setPixelRatio(
+      Math.min(window.devicePixelRatio, pixelRatio)
+    );
+  }, [pixelRatio]);
 
   const [, setChar] = useState<THREE.Object3D | null>(null);
   useEffect(() => {
@@ -37,7 +53,13 @@ const Scene = () => {
       powerPreference: isMobile ? "low-power" : "high-performance",
     });
     renderer.setSize(container.width, container.height);
-    renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1.5) : window.devicePixelRatio);
+    // Cap the pixel ratio using the detected quality tier. Uncapped, a 2x
+    // laptop rendered this full-viewport canvas at ~8.3MP every frame, which
+    // dominated the scroll budget on integrated GPUs.
+    renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio, pixelRatioRef.current)
+    );
+    rendererRef.current = renderer;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     mountNode.appendChild(renderer.domElement);
@@ -123,7 +145,15 @@ const Scene = () => {
     let frameAccumulator = 0;
     const mobileFrameInterval = 1 / 30;
 
+    // GSAP slides the character out of view past the WhatIDo section, but the
+    // WebGL loop kept rendering it for the whole rest of the page.
+    let onScreen = true;
+
     const animate = () => {
+      if (!onScreen) {
+        rafId = 0;
+        return;
+      }
       rafId = requestAnimationFrame(animate);
       const delta = clock.getDelta();
 
@@ -151,8 +181,23 @@ const Scene = () => {
     };
     animate();
 
+    // Park the loop whenever the canvas is off-screen, resume when it returns.
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        const wasOnScreen = onScreen;
+        onScreen = entry.isIntersecting;
+        if (onScreen && !wasOnScreen && !rafId) {
+          clock.getDelta(); // drop the accumulated gap so the mixer doesn't jump
+          animate();
+        }
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(mountNode);
+
     return () => {
       cancelAnimationFrame(rafId);
+      visibilityObserver.disconnect();
       if (debounce) clearTimeout(debounce);
       document.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);

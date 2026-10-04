@@ -28,7 +28,17 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
+
+    // Geist loads with font-display:swap, so the first split can be measured
+    // against fallback metrics and then re-flow once the real face arrives,
+    // leaving stale line boxes behind. Re-split once fonts settle.
+    let cancelled = false;
+    document.fonts?.ready.then(() => {
+      if (!cancelled) setSplitText();
+    });
+
     return () => {
+      cancelled = true;
       window.removeEventListener("resize", resizeHandler);
     };
     // Runs once: the handler reads window.innerWidth fresh each time, so it

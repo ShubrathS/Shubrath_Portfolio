@@ -59,6 +59,18 @@ body {
   overflow: hidden;
 }
 
+/* The page starts at overflow:hidden and initialFX() flips it to auto, which
+   makes the scrollbar appear mid-session. Without a reserved gutter that
+   narrows every percentage-width column by ~7px AFTER SplitText has already
+   baked each .para into fixed line divs, so the last word of a line spills
+   onto its own row (the orphaned "multilingual" in About). Reserving the
+   gutter up front keeps the measured width and the final width identical.
+   Declared on both because body's overflow is what propagates to the viewport. */
+html,
+body {
+  scrollbar-gutter: stable;
+}
+
 a {
   color: inherit;
   text-decoration: inherit;
