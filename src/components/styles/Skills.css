@@ -46,16 +46,11 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* Five groups never divide evenly, so one card widens to close the row:
-   3-col → row 2 is [Practices ×2][GenAI]; 2-col → row 3 is [GenAI ×2]. */
+/* Six groups: 3x2 on desktop, 2x3 on tablet, single column on phones. */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-}
-
-.skills-grid > .skills-card:nth-child(4) {
-  grid-column: span 2;
 }
 
 .skills-card {
@@ -200,12 +195,6 @@
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .skills-grid > .skills-card:nth-child(4) {
-    grid-column: span 1;
-  }
-  .skills-grid > .skills-card:last-child {
-    grid-column: span 2;
-  }
 }
 
 @media only screen and (max-width: 900px) {
@@ -224,10 +213,6 @@
   .skills-grid {
     grid-template-columns: 1fr;
     gap: 18px;
-  }
-  .skills-grid > .skills-card:nth-child(4),
-  .skills-grid > .skills-card:last-child {
-    grid-column: span 1;
   }
   .skills-card {
     padding: 24px;

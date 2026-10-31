@@ -112,7 +112,7 @@ const SocialIcons = () => {
       <a
         className="resume-button"
         href="/Shubrath_Shakyavanshi_Resume.pdf"
-        download="Shubrath_Shakyavanshi_Software_Engineer.pdf"
+        download="Shubrath_Shakyavanshi_AI_Engineer.pdf"
         data-cursor="disable"
       >
         <HoverLinks text="RESUME" />

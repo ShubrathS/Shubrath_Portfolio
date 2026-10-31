@@ -1,9 +1,10 @@
 import { useRef, useCallback } from "react";
 import {
-  TbApi,
-  TbCloud,
-  TbDatabase,
-  TbGitBranch,
+  TbBrain,
+  TbCloudCog,
+  TbCode,
+  TbRobot,
+  TbScale,
   TbSparkles,
 } from "react-icons/tb";
 import type { IconType } from "react-icons";
@@ -20,72 +21,94 @@ type SkillGroup = {
 // (public/Shubrath_Shakyavanshi_Resume.pdf). Keep the two in sync.
 const skillGroups: SkillGroup[] = [
   {
-    title: "Backend & APIs",
-    caption: "Services, contracts, integrations",
-    icon: TbApi,
-    skills: [
-      "C#",
-      ".NET",
-      "Web APIs",
-      "Java",
-      "Spring Boot",
-      "Python",
-      "FastAPI",
-      "Node.js",
-      "TypeScript",
-      "REST APIs",
-      "Microservices",
-    ],
-  },
-  {
-    title: "Cloud & Containers",
-    caption: "Azure · AWS · Docker · Kubernetes",
-    icon: TbCloud,
-    skills: [
-      "Azure App Services",
-      "Azure Key Vault",
-      "Azure Blob Storage",
-      "AWS S3",
-      "Redis",
-      "Docker",
-      "Kubernetes",
-    ],
-  },
-  {
-    title: "Data & Migrations",
-    caption: "Modelling, versioning, pipelines",
-    icon: TbDatabase,
-    skills: ["PostgreSQL", "SQL", "Flyway", "ETL"],
-  },
-  {
-    title: "Engineering Practices",
-    caption: "How the work actually ships",
-    icon: TbGitBranch,
-    skills: [
-      "CI/CD Pipelines",
-      "Unit Testing",
-      "Integration Testing",
-      "End-to-End Testing",
-      "Code Reviews",
-      "Observability",
-      "Production Support",
-      "Secure Development",
-      "SDLC",
-      "Git",
-    ],
-  },
-  {
-    title: "AI-Assisted Dev & GenAI",
-    caption: "LLMs in production, not demos",
+    title: "LLMs & Generative AI",
+    caption: "Models, retrieval, generation",
     icon: TbSparkles,
     skills: [
-      "GitHub Copilot",
-      "Claude",
-      "LLM APIs",
       "RAG",
+      "Embeddings",
+      "Transformers",
+      "Prompt Engineering",
+      "GPT-4",
+      "Claude",
+      "LLaMA",
+      "Mistral",
+      "Whisper",
+    ],
+  },
+  {
+    title: "Agentic AI & Orchestration",
+    caption: "Agents that plan and act",
+    icon: TbRobot,
+    skills: [
       "LangChain",
+      "LlamaIndex",
+      "CrewAI",
+      "AutoGen",
+      "MCP",
       "Multi-Agent Pipelines",
+    ],
+  },
+  {
+    title: "Responsible AI & Evaluation",
+    caption: "Bias, fairness, benchmarks",
+    icon: TbScale,
+    skills: [
+      "LLM Evaluation",
+      "Bias & Fairness Benchmarking",
+      "StereoSet",
+      "CrowS-Pairs",
+      "BBQ",
+    ],
+  },
+  {
+    title: "NLP & ML",
+    caption: "Language and vision models",
+    icon: TbBrain,
+    skills: [
+      "NER",
+      "Text Classification",
+      "Summarization",
+      "PyTorch",
+      "TensorFlow",
+      "Hugging Face",
+      "Scikit-learn",
+      "OpenCV",
+    ],
+  },
+  {
+    title: "Cloud & MLOps",
+    caption: "Train, ship, monitor",
+    icon: TbCloudCog,
+    skills: [
+      "Azure ML",
+      "SageMaker",
+      "Docker",
+      "Kubernetes",
       "MLflow",
+      "CI/CD",
+      "FAISS",
+      "Pinecone",
+      "Weaviate",
+      "Chroma",
+    ],
+  },
+  {
+    title: "Engineering & Data",
+    caption: "The plumbing underneath",
+    icon: TbCode,
+    skills: [
+      "Python",
+      "TypeScript",
+      "JavaScript",
+      "Java",
+      "SQL",
+      "FastAPI",
+      "Flask",
+      "Node.js",
+      "REST APIs",
+      "ETL",
+      "Git",
     ],
   },
 ];
@@ -125,8 +148,8 @@ const Skills = () => {
           Technical <span>skills</span>
         </h2>
         <p className="skills-intro">
-          The stack I build, ship, and support production systems with — mirrored
-          from my resume.
+          The AI stack I design, ship, and run in production — mirrored from my
+          resume.
         </p>
 
         <div className="skills-grid">
