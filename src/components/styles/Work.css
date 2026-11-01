@@ -78,6 +78,9 @@
 }
 
 .carousel-slide {
+  /* Exactly one track width per slide: translateX(-100% * index) relies on
+     it, so content must never be allowed to widen a slide. */
+  width: 100%;
   min-width: 100%;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -329,10 +332,16 @@
 }
 
 .work-image img {
+  /* A fixed height (width follows the image's own ratio) reserves the box
+     before the lazy file arrives, so the page height doesn't grow under the
+     scroller and the sections below don't shift. aspect-ratio stands in for
+     the natural ratio until the image has loaded. A width attribute would
+     do the same but leaks its 1024px into the flex layout and widens the
+     slides past the track. */
+  height: 400px;
+  width: auto;
   max-width: 100%;
-  max-height: 400px;
-  /* Scale the attribute-sized box with the column instead of fixing it */
-  height: auto;
+  aspect-ratio: auto 1 / 1;
   border-radius: 8px;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -434,6 +443,6 @@
   }
 
   .work-image img {
-    max-height: 250px;
+    height: 250px;
   }
 }
