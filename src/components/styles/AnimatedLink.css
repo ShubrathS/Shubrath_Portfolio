@@ -1,0 +1,117 @@
+.anim-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.anim-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 0–3: thin underline in the current text colour */
+.anim-link-0::before,
+.anim-link-1::before,
+.anim-link-2::before,
+.anim-link-3::before {
+  height: 0.05em;
+  background: currentColor;
+  transform: scaleX(0);
+}
+.anim-link-0::before {
+  bottom: 0;
+}
+.anim-link-1::before,
+.anim-link-2::before,
+.anim-link-3::before {
+  top: 1.5em;
+}
+.anim-link-0:is(:hover, :focus-visible)::before,
+.anim-link-1:is(:hover, :focus-visible)::before,
+.anim-link-2:is(:hover, :focus-visible)::before,
+.anim-link-3:is(:hover, :focus-visible)::before {
+  transform: scaleX(1);
+}
+.anim-link-0::before,
+.anim-link-1::before {
+  transform-origin: right;
+}
+.anim-link-0:is(:hover, :focus-visible)::before,
+.anim-link-1:is(:hover, :focus-visible)::before {
+  transform-origin: left;
+}
+.anim-link-2::before {
+  transform-origin: left;
+}
+.anim-link-2:is(:hover, :focus-visible)::before {
+  transform-origin: right;
+}
+.anim-link-3::before {
+  transform-origin: center;
+}
+
+/* 4–5: white block that inverts the text beneath it */
+.anim-link-4,
+.anim-link-5 {
+  padding: 0 0.5rem;
+}
+.anim-link-4::before,
+.anim-link-5::before {
+  z-index: 1;
+  background: #fff;
+  mix-blend-mode: difference;
+  transition-property: all;
+}
+.anim-link-4::before {
+  bottom: 0;
+  height: 0;
+}
+.anim-link-4:is(:hover, :focus-visible)::before {
+  height: 1.4em;
+}
+.anim-link-5::before {
+  top: 0;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.anim-link-5:is(:hover, :focus-visible)::before {
+  transform: scaleX(1);
+}
+
+/* Arrow */
+.anim-link-arrow {
+  width: 0.55em;
+  height: 0.55em;
+  margin-left: 0.3em;
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.anim-link:is(:hover, :focus-visible) .anim-link-arrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+.anim-link-4 .anim-link-arrow,
+.anim-link-5 .anim-link-arrow {
+  margin-left: 0.6em;
+}
+.anim-link-4:is(:hover, :focus-visible) .anim-link-arrow {
+  transform: translateY(0) rotate(45deg);
+}
+.anim-link-5 .anim-link-arrow {
+  transform: translateX(-0.25rem) rotate(45deg);
+}
+.anim-link-5:is(:hover, :focus-visible) .anim-link-arrow {
+  transform: translateX(0) rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-link::before,
+  .anim-link-arrow {
+    transition: none;
+  }
+}

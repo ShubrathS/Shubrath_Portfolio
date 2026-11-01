@@ -1,4 +1,5 @@
 import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import AnimatedLink from "./AnimatedLink";
 import "./styles/Contact.css";
 
 const Contact = () => {
@@ -18,12 +19,13 @@ const Contact = () => {
               </a>
             </p>
             <p>
-              <a
+              <AnimatedLink
                 href="tel:+919664968378"
+                variant={1}
                 data-cursor="disable"
               >
                 (+91) 9664968378
-              </a>
+              </AnimatedLink>
             </p>
           </div>
           <div className="contact-box contact-box-edu">

@@ -197,6 +197,11 @@
   width: 100%;
 }
 
+/* AnimatedLink draws its own underline */
+.contact-flex p a.anim-link::after {
+  display: none;
+}
+
 .contact-flex p a:hover {
   color: var(--accentColor);
   text-shadow: 0 0 15px rgba(94, 234, 212, 0.2);
