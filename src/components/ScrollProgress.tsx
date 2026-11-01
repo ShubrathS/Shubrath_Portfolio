@@ -1,35 +1,29 @@
 import { useEffect, useRef } from "react";
 import "./styles/ScrollProgress.css";
-import { smoother } from "./smoother";
 
 const ScrollProgress = () => {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const update = () => {
-      // ScrollSmoother transforms #smooth-content while #smooth-wrapper stays
-      // fixed, so wrapper.scrollTop is always 0 and the old math yielded 0%.
-      // Read the real scroll position from the smoother (falling back to native
-      // scroll before the smoother instance exists) against the content height.
-      const content = document.getElementById("smooth-content");
-      const scrollTop = smoother ? smoother.scrollTop() : window.scrollY;
-      const docHeight = (content?.scrollHeight ?? 0) - window.innerHeight;
+      // Lenis writes the native scroll position every frame, so window.scrollY
+      // is the real position and native scroll events fire as it moves.
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const progress =
         docHeight > 0
-          ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100))
+          ? Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100))
           : 0;
       if (barRef.current) {
         barRef.current.style.setProperty("--progress", `${progress}%`);
       }
     };
 
-    window.addEventListener("scroll", update);
-    // ScrollSmoother scrolling doesn't fire native scroll events, so poll too.
-    const interval = setInterval(update, 100);
+    window.addEventListener("scroll", update, { passive: true });
+    update();
 
     return () => {
       window.removeEventListener("scroll", update);
-      clearInterval(interval);
     };
   }, []);
 

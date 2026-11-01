@@ -1,6 +1,6 @@
 import { SplitText } from "gsap/SplitText";
 import gsap from "gsap";
-import { smoother } from "../smoother";
+import { lenis } from "../lenis";
 import setSplitText from "./splitText";
 
 export function initialFX() {
@@ -10,7 +10,7 @@ export function initialFX() {
   // columns narrow here — after .para was split into fixed line boxes. Re-split
   // so the lines are measured against the final width either way.
   setSplitText();
-  smoother.paused(false);
+  lenis.start();
   document.getElementsByTagName("main")[0].classList.add("main-active");
   gsap.to("body", {
     backgroundColor: "#0a0e17",

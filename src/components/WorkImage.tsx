@@ -6,6 +6,9 @@ interface Props {
   alt?: string;
   video?: string;
   link?: string;
+  /** Intrinsic pixel size; every project image is exported at 1024×1024. */
+  width?: number;
+  height?: number;
 }
 
 const WorkImage = (props: Props) => {
@@ -22,9 +25,14 @@ const WorkImage = (props: Props) => {
           <MdArrowOutward />
         </div>
       )}
+      {/* width/height reserve the box before the lazy image arrives, so the
+          page height doesn't grow under the scroller (Lenis clamps to the
+          height it last measured) and the sections below don't shift. */}
       <img
         src={props.image}
         alt={props.alt}
+        width={props.width ?? 1024}
+        height={props.height ?? 1024}
         loading="lazy"
         decoding="async"
       />

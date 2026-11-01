@@ -24,7 +24,7 @@ An interactive 3D portfolio featuring a real-time avatar with head-tracking, scr
 ### Highlights
 
 - 🎭 **3D Avatar** — Custom encrypted GLB model with real-time head-tracking that follows cursor/touch
-- 🎬 **Cinematic Scroll** — GSAP ScrollSmoother with parallax, section reveals, and character camera transitions
+- 🎬 **Cinematic Scroll** — Lenis smooth scrolling synced with GSAP ScrollTrigger for section reveals and character camera transitions
 - ⚡ **Mobile Optimized** — Adaptive rendering (30fps throttle, capped pixel ratio, no HDR/shadows on mobile)
 - 🧊 **Physics Tech Stack** — Interactive 3D spheres powered by Rapier physics engine (desktop)
 - ✨ **30+ Micro-Animations** — Shimmer text, glow pulses, neon borders, floating particles, border sweeps
@@ -38,7 +38,7 @@ An interactive 3D portfolio featuring a real-time avatar with head-tracking, scr
 |----------|-------------|
 | **Frontend** | React 18, TypeScript, Vite |
 | **3D Engine** | Three.js, React Three Fiber, Drei, Rapier Physics |
-| **Animation** | GSAP (ScrollSmoother, ScrollTrigger, SplitText) |
+| **Animation** | GSAP (ScrollTrigger, SplitText) + Lenis |
 | **Styling** | Vanilla CSS, CSS Animations, Google Fonts (Geist, JetBrains Mono) |
 | **Deployment** | Vercel |
 | **Other** | Web Crypto API, Draco Compression, HDR Environment Maps |

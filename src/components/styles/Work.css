@@ -331,6 +331,8 @@
 .work-image img {
   max-width: 100%;
   max-height: 400px;
+  /* Scale the attribute-sized box with the column instead of fixing it */
+  height: auto;
   border-radius: 8px;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }

@@ -2,52 +2,57 @@ import { useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
-import { smoother, setSmoother } from "./smoother";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
+import { setLenis } from "./lenis";
 import "./styles/Navbar.css";
 
-gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
   useEffect(() => {
-    // Reuse an existing instance if one is already alive (StrictMode double-mount / HMR)
-    setSmoother(
-      ScrollSmoother.get() ??
-        ScrollSmoother.create({
-          wrapper: "#smooth-wrapper",
-          content: "#smooth-content",
-          // smooth is the lerp duration: at 1.7 every wheel tick took 1.7s to
-          // settle, which reads as sluggish even at a solid frame rate.
-          smooth: 1,
-          speed: 1.7,
-          effects: true,
-          autoResize: true,
-          ignoreMobileResize: true,
-        })
-    );
+    // Lenis moves the native scroll position a little each frame, so the
+    // window is still the scroller: the scrub timelines in GsapScroll and the
+    // scroll progress bar keep reading it unchanged.
+    const lenis = new Lenis({
+      // Fraction of the remaining distance covered per frame (at 60fps). Lower
+      // means a longer glide after the wheel stops; 0.1 is the Lenis default
+      // and what the reference sites use.
+      lerp: 0.1,
+      wheelMultiplier: 1,
+    });
+    setLenis(lenis);
 
-    smoother.scrollTop(0);
-    smoother.paused(true);
+    // Drive Lenis from GSAP's ticker so ScrollTrigger reads the scroll
+    // position in the same frame it was written.
+    lenis.on("scroll", ScrollTrigger.update);
+    const tick = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
+
+    // Hold the page at the top until the loader hands over (initialFX calls
+    // lenis.start()).
+    lenis.scrollTo(0, { immediate: true, force: true });
+    lenis.stop();
 
     const onLinkClick = (e: Event) => {
       if (window.innerWidth > 1024) {
         e.preventDefault();
         const elem = e.currentTarget as HTMLAnchorElement;
         const section = elem.getAttribute("data-href");
-        if (section) smoother.scrollTo(section, true, "top top");
+        // A fixed duration so a long jump arrives in a predictable time
+        // instead of lerp's fast-then-crawl approach.
+        if (section) lenis.scrollTo(section, { duration: 1.5 });
       }
     };
 
     const links = document.querySelectorAll(".header ul a");
     links.forEach((elem) => elem.addEventListener("click", onLinkClick));
 
-    const onResize = () => ScrollSmoother.refresh(true);
-    window.addEventListener("resize", onResize);
-
     return () => {
       links.forEach((elem) => elem.removeEventListener("click", onLinkClick));
-      window.removeEventListener("resize", onResize);
-      smoother?.kill();
+      gsap.ticker.remove(tick);
+      lenis.destroy();
     };
   }, []);
   return (
